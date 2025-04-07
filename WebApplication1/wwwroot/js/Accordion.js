@@ -39,9 +39,9 @@ function addAccordion() {
                     <th scope="col" class="text-center">Sum</th>
                    </tr>
                   </thead>
-                 <tbody>            
+                 <tbody id = "tbody">            
                  </tbody>
-                 <tfoot>
+                 <tfoot id="footer">
                    <tr>
                     <td><input class="form-control sum col-1" type="number" value="0" readonly></td>
                     <td><input class="form-control sum col-2" type="number" value="0" readonly></td>
@@ -58,7 +58,7 @@ function addAccordion() {
 }
 
 function addRow(e) {
-    var tbody = document.getElementById(e.srcElement.id).nextElementSibling;
+    var tbody = document.getElementById("tbody");
     tbody.innerHTML +=
     `
     <tr>
@@ -97,14 +97,22 @@ function decimalInputValidate1(inputElement) {
     if (decimalValidation(inputElement)) {
         var tr = inputElement.parentElement.parentElement;
         console.log(tr);
-        var inputs = tr.querySelectorAll("input");
+        var Rowinputs = tr.querySelectorAll("input");
         var sumInp = tr.querySelector(".sum");
         sum = 0;
-        inputs.forEach(sumRowAndCol);
+        Rowinputs.forEach(sumRow);
         sumInp.value = sum;
-        var tbody = tr.parentElement;
-        var colInputs = tbody.querySelectorAll("col-1");
 
+
+        var tbody = tr.parentElement;
+        console.log(tbody);
+        var colInputs = tbody.querySelectorAll(".col-1");
+        console.log(colInputs);
+        var tfoot = document.getElementById("footer");
+        var colSumInput = tfoot.querySelector(".col-1");
+        sum2=0
+        colInputs.forEach(sumCol);
+        colSumInput.value = sum2
         
     };
 }
@@ -114,11 +122,22 @@ function decimalInputValidate2(inputElement) {
     if (decimalValidation(inputElement)) {
         var tr = inputElement.parentElement.parentElement;
         console.log(tr);
-        var inputs = tr.querySelectorAll("input");
+        var Rowinputs = tr.querySelectorAll("input");
         var sumInp = tr.querySelector(".sum");
         sum = 0;
-        inputs.forEach(sumRowAndCol);
+        Rowinputs.forEach(sumRow);
         sumInp.value = sum;
+
+
+        var tbody = tr.parentElement;
+        console.log(tbody);
+        var colInputs = tbody.querySelectorAll(".col-3");
+        console.log(colInputs);
+        var tfoot = document.getElementById("footer");
+        var colSumInput = tfoot.querySelector(".col-3");
+        sum2 = 0
+        colInputs.forEach(sumCol);
+        colSumInput.value = sum2
     }
 }
 
@@ -145,16 +164,35 @@ function integerInputValidate(inputElement) {
         var inputs = tr.querySelectorAll("input");
         var sumInp = tr.querySelector(".sum");
         sum = 0;
-        inputs.forEach(sumRowAndCol);
+        inputs.forEach(sumRow);
         sumInp.value = sum;
+
+
+        var tbody = tr.parentElement;
+        console.log(tbody);
+        var colInputs = tbody.querySelectorAll(".col-2");
+        console.log(colInputs);
+        var tfoot = document.getElementById("footer");
+        var colSumInput = tfoot.querySelector(".col-2");
+        sum2 = 0
+        colInputs.forEach(sumCol);
+        colSumInput.value = sum2
     }
 }
 
 
-function sumRowAndCol(input) {
+function sumRow(input) {
     //console.log(input);
     if (!input.classList.contains("sum")) {
        sum += Number(input.value);
+    }
+}
+
+
+function sumCol(input) {
+    //console.log(input);
+    if (!input.classList.contains("sum")) {
+        sum2 += Number(input.value);
     }
 }
 
