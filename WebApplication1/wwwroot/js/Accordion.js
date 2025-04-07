@@ -1,4 +1,9 @@
 ﻿var i = 0;
+var decimalRegax = /^-?\d*\.\d+$/;
+var integerRegax = /^-?\d+$/;
+var sum = 0;
+var sum2 = 0;
+
 function addAccordion() { 
 
     console.log("add accordion ....");
@@ -25,8 +30,8 @@ function addAccordion() {
       <div class="accordion-body">
               <button type="button" class="btn btn-danger" onclick="addRow(event)" id="btn-`+ i +`">Add Row</button>
              
-                <table class="table table-striped" id="table-`+i+`" >
-                  <thead>
+                <table class="table" id="table-`+i+`" >
+                  <thead class="thead-dark">
                    <tr>
                     <th scope="col" class="text-center">Col1</th>
                     <th scope="col" class="text-center">Col2</th>
@@ -34,8 +39,16 @@ function addAccordion() {
                     <th scope="col" class="text-center">Sum</th>
                    </tr>
                   </thead>
-                 <tbody id="+">            
+                 <tbody>            
                  </tbody>
+                 <tfoot>
+                   <tr>
+                    <td><input class="form-control sum col-1" type="number" value="0" readonly></td>
+                    <td><input class="form-control sum col-2" type="number" value="0" readonly></td>
+                    <td><input class="form-control sum col-3" type="number" value="0" readonly></td>
+                    <td><input class="form-control sum col-4" type="number" value="0" readonly></td>
+                   </tr>
+                 </tfoot>
                </table>           
        </div>
      </div>
@@ -47,13 +60,102 @@ function addAccordion() {
 function addRow(e) {
     var tbody = document.getElementById(e.srcElement.id).nextElementSibling;
     tbody.innerHTML +=
-        `
+    `
     <tr>
-    <td> <input class="form-control" type="text" placeholder=" write number here..."> </td>
-    <td> <input class="form-control" type="text" placeholder=" write number here..."> </td>
-    <td> <input class="form-control" type="text" placeholder=" write number here..."> </td>
-    <td> <input class="form-control" type="text" placeholder=" write number here..."> </td>
+    <td> <input class="form-control col-1" type="number" value="0" onchange="decimalInputValidate1(this)"><span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span></td>
+    <td> <input class="form-control col-2" type="number" value="0" onchange="integerInputValidate(this)"> <span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span> </td>
+    <td> <input class="form-control col-3" type="number" value="0" onchange="decimalInputValidate2(this)"> <span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span> </td>
+    <td> <input class="form-control sum col-4" type="number" value="0" readonly></td>
     </tr>
     `
     
 }
+
+
+function decimalValidation(inputEle) {
+    var td = inputEle.closest("td");
+    var spanElement = td.querySelector(".input-Error");
+
+    if (!decimalRegax.test(Number(inputEle.value))) {
+        inputEle.classList.add("border-danger")
+
+        var spanElement = td.querySelector(".input-Error");
+        spanElement.classList.remove("d-none");
+        spanElement.classList.add("d-block");
+        spanElement.innerHTML = "Please enter a decimal number";
+        return false;
+    }
+    else {
+        inputEle.classList.remove("border-danger");
+        spanElement.classList.remove("d-block");
+        spanElement.classList.add("d-none");
+        return true;
+    }
+}
+
+function decimalInputValidate1(inputElement) {
+    if (decimalValidation(inputElement)) {
+        var tr = inputElement.parentElement.parentElement;
+        console.log(tr);
+        var inputs = tr.querySelectorAll("input");
+        var sumInp = tr.querySelector(".sum");
+        sum = 0;
+        inputs.forEach(sumRowAndCol);
+        sumInp.value = sum;
+        var tbody = tr.parentElement;
+        var colInputs = tbody.querySelectorAll("col-1");
+
+        
+    };
+}
+
+
+function decimalInputValidate2(inputElement) {
+    if (decimalValidation(inputElement)) {
+        var tr = inputElement.parentElement.parentElement;
+        console.log(tr);
+        var inputs = tr.querySelectorAll("input");
+        var sumInp = tr.querySelector(".sum");
+        sum = 0;
+        inputs.forEach(sumRowAndCol);
+        sumInp.value = sum;
+    }
+}
+
+
+function integerInputValidate(inputElement) {
+    var td = inputElement.closest("td");
+    var spanElement = td.querySelector(".input-Error");
+
+    if (!integerRegax.test(Number(inputElement.value))) {
+        inputElement.classList.add("border-danger")
+
+        var spanElement = td.querySelector(".input-Error");
+        spanElement.classList.remove("d-none");
+        spanElement.classList.add("d-block");
+        spanElement.innerHTML = "Please enter an integer number";
+
+    }
+    else {
+        inputElement.classList.remove("border-danger");
+        spanElement.classList.remove("d-block");
+        spanElement.classList.add("d-none");
+           var tr = inputElement.parentElement.parentElement;
+        console.log(tr);
+        var inputs = tr.querySelectorAll("input");
+        var sumInp = tr.querySelector(".sum");
+        sum = 0;
+        inputs.forEach(sumRowAndCol);
+        sumInp.value = sum;
+    }
+}
+
+
+function sumRowAndCol(input) {
+    //console.log(input);
+    if (!input.classList.contains("sum")) {
+       sum += Number(input.value);
+    }
+}
+
+ 
