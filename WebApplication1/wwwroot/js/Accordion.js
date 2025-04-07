@@ -3,7 +3,7 @@ var decimalRegax = /^-?\d*\.\d+$/;
 var integerRegax = /^-?\d+$/;
 var sum = 0;
 var sum2 = 0;
-
+var totat = 0;
 function addAccordion() { 
 
     console.log("add accordion ....");
@@ -46,7 +46,7 @@ function addAccordion() {
                     <td><input class="form-control sum col-1" type="number" value="0" readonly></td>
                     <td><input class="form-control sum col-2" type="number" value="0" readonly></td>
                     <td><input class="form-control sum col-3" type="number" value="0" readonly></td>
-                    <td><input class="form-control sum col-4" type="number" value="0" readonly></td>
+                    <td><input class="form-control col-4" type="number" value="0"  id="total" readonly></td>
                    </tr>
                  </tfoot>
                </table>           
@@ -65,7 +65,7 @@ function addRow(e) {
     <td> <input class="form-control col-1" type="number" value="0" onchange="decimalInputValidate1(this)"><span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span></td>
     <td> <input class="form-control col-2" type="number" value="0" onchange="integerInputValidate(this)"> <span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span> </td>
     <td> <input class="form-control col-3" type="number" value="0" onchange="decimalInputValidate2(this)"> <span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span> </td>
-    <td> <input class="form-control sum col-4" type="number" value="0" readonly></td>
+    <td> <input class="form-control sumRow col-4" type="number" value="0" readonly></td>
     </tr>
     `
     
@@ -98,7 +98,7 @@ function decimalInputValidate1(inputElement) {
         var tr = inputElement.parentElement.parentElement;
         console.log(tr);
         var Rowinputs = tr.querySelectorAll("input");
-        var sumInp = tr.querySelector(".sum");
+        var sumInp = tr.querySelector(".sumRow");
         sum = 0;
         Rowinputs.forEach(sumRow);
         sumInp.value = sum;
@@ -112,7 +112,13 @@ function decimalInputValidate1(inputElement) {
         var colSumInput = tfoot.querySelector(".col-1");
         sum2=0
         colInputs.forEach(sumCol);
-        colSumInput.value = sum2
+        colSumInput.value = sum2;
+
+        var totalInput = document.getElementById("total");
+        console.log(totalInput);
+        total = 0;
+        Calctotal();
+        totalInput.value = total
         
     };
 }
@@ -123,7 +129,7 @@ function decimalInputValidate2(inputElement) {
         var tr = inputElement.parentElement.parentElement;
         console.log(tr);
         var Rowinputs = tr.querySelectorAll("input");
-        var sumInp = tr.querySelector(".sum");
+        var sumInp = tr.querySelector(".sumRow");
         sum = 0;
         Rowinputs.forEach(sumRow);
         sumInp.value = sum;
@@ -137,7 +143,12 @@ function decimalInputValidate2(inputElement) {
         var colSumInput = tfoot.querySelector(".col-3");
         sum2 = 0
         colInputs.forEach(sumCol);
-        colSumInput.value = sum2
+        colSumInput.value = sum2;
+
+        var totalInput = document.getElementById("total");
+        total = 0;
+        Calctotal();
+        totalInput.value = total;
     }
 }
 
@@ -162,7 +173,7 @@ function integerInputValidate(inputElement) {
            var tr = inputElement.parentElement.parentElement;
         console.log(tr);
         var inputs = tr.querySelectorAll("input");
-        var sumInp = tr.querySelector(".sum");
+        var sumInp = tr.querySelector(".sumRow");
         sum = 0;
         inputs.forEach(sumRow);
         sumInp.value = sum;
@@ -176,14 +187,19 @@ function integerInputValidate(inputElement) {
         var colSumInput = tfoot.querySelector(".col-2");
         sum2 = 0
         colInputs.forEach(sumCol);
-        colSumInput.value = sum2
+        colSumInput.value = sum2;
+
+        var totalInput = document.getElementById("total");
+        total = 0;
+        Calctotal();
+        totalInput.value = total
     }
 }
 
 
 function sumRow(input) {
     //console.log(input);
-    if (!input.classList.contains("sum")) {
+    if (!input.classList.contains("sumRow")) {
        sum += Number(input.value);
     }
 }
@@ -195,5 +211,13 @@ function sumCol(input) {
         sum2 += Number(input.value);
     }
 }
+
+function Calctotal() {
+    var sumInputs = document.querySelectorAll(".sumRow");
+    sumInputs.forEach(input => {
+        total += Number(input.value);
+    })
+}
+
 
  
