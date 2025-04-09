@@ -17,13 +17,64 @@
 
  
    <div class="accordion accordion-flush mx-auto" id="accordionFlush" style="max-width:900px;">
+       
    </div>
-  
 
-     
+
+
+<template>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeading1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                <span class="me-2 text-primary">
+                    <i class="bi bi-question-circle-fill"></i>
+                </span>
+                Accordion Item # <span class="accordion-number"></span>
+            </button>
+        </h2>
+        <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                <button type="button" class="btn btn-danger add" onclick="addRow(this)" id="btn-">Add Row</button>
+
+                <table class="table" id="table-">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="text-center">Col1</th>
+                            <th scope="col" class="text-center">Col2</th>
+                            <th scope="col" class="text-center">Col3</th>
+                            <th scope="col" class="text-center">Sum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                    <tfoot id="footer">
+                        <tr>
+                            <td><input class="form-control sum col-1" type="number" value="0" readonly></td>
+                            <td><input class="form-control sum col-2" type="number" value="0" readonly></td>
+                            <td><input class="form-control sum col-3" type="number" value="0" readonly ></td>
+                            <td><input class="form-control total col-4" type="number" value="0" readonly></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template>
+    <tr>
+        <td> <input class="form-control col-1 valnum" type="number" value="0" step=".01"><span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span></td>
+        <td> <input class="form-control col-2  valnum integer" type="number" value="0" step="1"> <span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span> </td>
+        <td> <input class="form-control col-3 valnum" type="number" value="0" step=".01"> <span class="Error input-Error d-none text-danger" style="font-size: 14px;"></span> </td>
+        <td> <input class="form-control  col-4  sum sumRow" type="number" value="0" readonly></td>
+    </tr>
+</template>
+
+
+
 
 @section Scripts
 {
-    <script src="/js/accordion.js"></script>
+    <script src="/js/accordion.js"  asp-append-version="true"></script>
 
 }
