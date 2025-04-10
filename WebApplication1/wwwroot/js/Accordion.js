@@ -4,13 +4,11 @@ var sumCols = 0;
 var total = 0;
 
 function addAccordion() { 
-
-    console.log("add accordion ....");
     
     var accordionFlush = document.getElementById("accordionFlush");
 
     //For design
-    if (!accordionFlush.classList.contains('border') && !accordionFlush.classList.contains('border')) {
+    if (!accordionFlush.classList.contains('border')) {
         accordionFlush.classList.add('border');
         accordionFlush.classList.add('rounded');
     }   

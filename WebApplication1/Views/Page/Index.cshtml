@@ -22,7 +22,7 @@
 
 
 
-<template>
+<template >
     <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading1">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
@@ -47,14 +47,14 @@
                     </thead>
                     <tbody id="tbody">
                     </tbody>
-                    <tfoot id="footer">
+                     <tfoot id="footer">
                         <tr>
                             <td><input class="form-control sum col-1" type="number" value="0" readonly></td>
                             <td><input class="form-control sum col-2" type="number" value="0" readonly></td>
                             <td><input class="form-control sum col-3" type="number" value="0" readonly ></td>
                             <td><input class="form-control total col-4" type="number" value="0" readonly></td>
                         </tr>
-                    </tfoot>
+                    </tfoot> 
                 </table>
             </div>
         </div>
@@ -75,6 +75,6 @@
 
 @section Scripts
 {
-    <script src="/js/accordion.js"  asp-append-version="true"></script>
+    <script src="/js/accordionJQuery.js"  asp-append-version="true"></script>
 
 }
